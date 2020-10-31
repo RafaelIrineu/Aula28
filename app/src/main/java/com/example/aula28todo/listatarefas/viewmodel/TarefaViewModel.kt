@@ -15,8 +15,14 @@ class TarefaViewModel(
         repository.obterLista { lista ->
             tarefas.value = lista
         }
-        repository.criarItem()
+
     }
+    fun criarItem() {
+        repository.criarItem (Tarefa("Texto Novo", false))
+        obterLista()
+    }
+
+
 
     class ListaTarefaViewModelFactory(
         private val repository: TarefaRepository

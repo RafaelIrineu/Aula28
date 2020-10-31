@@ -16,9 +16,9 @@ import com.example.aula28todo.listatarefas.repository.TarefaRepository
 import com.example.aula28todo.listatarefas.viewmodel.TarefaViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ICriaritem {
+class MainActivity : AppCompatActivity() {
     lateinit var viewModel: TarefaViewModel
-    var btn = findViewById<Button>(R.id.btnAdd)
+    //var btn = findViewById<Button>(R.id.btnAdd)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,25 +29,19 @@ class MainActivity : AppCompatActivity(), ICriaritem {
             TarefaViewModel.ListaTarefaViewModelFactory(TarefaRepository(this))
         ).get(TarefaViewModel::class.java)
 
-        btn.setOnClickListener {
+        /*btn.setOnClickListener {
 
 //            TarefaRepository
-        }
+        }*/
 
         viewModel.tarefas.observe(this, Observer {
             criarLista(it)
         })
 
+        findViewById<Button>(R.id.btnAdd).setOnClickListener { viewModel.criarItem() }
         viewModel.obterLista()
     }
 
-    fun adicionar() {
-
-    }
-
-    override fun criarItem(tarefa: Tarefa) {
-
-    }
 
     fun criarLista(tarefas: List<Tarefa>) {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
